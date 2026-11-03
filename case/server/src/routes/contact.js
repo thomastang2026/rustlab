@@ -1,0 +1,3 @@
+import {Router} from 'express';import {z} from 'zod';import {ContactMessage} from '../models/ContactMessage.js';
+const input=z.object({name:z.string().min(2).max(100),email:z.string().email(),phone:z.string().max(30).optional(),subject:z.string().min(2).max(150),message:z.string().min(5).max(2000)});
+export const contactRouter=Router().post('/',async(req,res,next)=>{try{const parsed=input.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:{code:'VALIDATION_ERROR',message:'Invalid contact request',fields:parsed.error.flatten().fieldErrors}});await ContactMessage.create(parsed.data);res.status(201).json({data:{accepted:true}})}catch(e){next(e)}});

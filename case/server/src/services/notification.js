@@ -1,0 +1,1 @@
+export async function sendBookingNotifications(appointment){if(process.env.NODE_ENV!=='test')console.info(JSON.stringify({event:'booking.notification.queued',referenceCode:appointment.referenceCode}));return true}

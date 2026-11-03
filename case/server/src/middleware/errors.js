@@ -1,0 +1,2 @@
+export const notFound=(req,res)=>res.status(404).json({error:{code:'NOT_FOUND',message:'Resource not found'}});
+export const errorHandler=(err,req,res,next)=>{console.error(JSON.stringify({event:'request.error',requestId:req.id,message:err.message}));res.status(err.status||500).json({error:{code:err.code||'INTERNAL_ERROR',message:err.status?err.message:'Unexpected server error',fields:err.fields}})};
